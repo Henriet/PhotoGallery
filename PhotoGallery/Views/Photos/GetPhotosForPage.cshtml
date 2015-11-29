@@ -1,6 +1,6 @@
-﻿@model IEnumerable<PhotoGallery.Domain.Photo>
-
-
+﻿@model PagedList.IPagedList<PhotoGallery.Domain.Photo>
+@using PagedList.Mvc;
+ 
 <ul id="gallery-grid" class="row shuffle">
     @foreach (var item in Model)
     {
@@ -9,7 +9,7 @@
             <div class="hover-content">
                 <a href="@Url.Action("Details", "Galleries", new {Id = item.Id})">
 
-                    <img src="@item.Path" class="img-responsive" />
+                    <img src="@item.Path" class="img-responsive"/>
                     <div class="overlay">
                         <i class="fa fa-search"></i>
                         <h6>@item.Name</h6>
@@ -20,3 +20,8 @@
         </li>
     }
 </ul>
+
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) from @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("GetPhotosForPage", "Photos", new { page }))

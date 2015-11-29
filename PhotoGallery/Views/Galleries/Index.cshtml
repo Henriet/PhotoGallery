@@ -6,11 +6,10 @@
 
 <h3>Galleries</h3>
 
-@if (ViewBag.IsAdmin != null && ViewBag.IsAdmin)
+@if (User.IsInRole("Admin"))
 {
     <p>
-
-        @Html.ActionLink("Create new gallery", "Create", new {controller = "Galleries"}, new {@class = "btn btn-default"})
+        @Html.ActionLink("Create new gallery", "Create", new { controller = "Galleries" }, new { @class = "btn btn-default" })
     </p>
 }
 

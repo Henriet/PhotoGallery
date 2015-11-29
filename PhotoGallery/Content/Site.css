@@ -182,6 +182,11 @@ h4,
 h5, 
 h6 {
 	font-family: 'Roboto Condensed', sans-serif;
+    text-align: center;
+}
+
+h6 {
+    font-style: italic;
 }
 h1 { font-size: 38px; }
 h2 { font-size: 48px; }
@@ -562,4 +567,8 @@ ul#gallery-grid .hover-content .overlay,
 	-moz-transition: all .3s ease-in-out;
 	-o-transition: all .3s ease-in-out;
 	transition: all .3s ease-in-out;
+}
+
+img {
+    
 }

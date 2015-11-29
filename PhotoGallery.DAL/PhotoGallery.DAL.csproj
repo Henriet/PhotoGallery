@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="PhotoService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>

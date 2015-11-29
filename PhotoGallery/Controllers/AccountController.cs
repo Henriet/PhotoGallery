@@ -81,8 +81,6 @@ namespace PhotoGalery.Controllers
             {
                 case SignInStatus.Success:
                 {
-                    bool isAdmin = UserManager.IsInRole(User.Identity.GetUserId(), "Admin");
-                    ViewBag.IsAdmin = isAdmin;
                     return RedirectToLocal(returnUrl);
                 }
                 case SignInStatus.LockedOut:
@@ -168,7 +166,7 @@ namespace PhotoGalery.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Galleries");
                 }
                 AddErrors(result);
             }
@@ -398,7 +396,7 @@ namespace PhotoGalery.Controllers
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             ViewBag.IsAdmin = false;
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Galleries");
         }
 
         //
@@ -455,7 +453,7 @@ namespace PhotoGalery.Controllers
             {
                 return Redirect(returnUrl);
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Galleries");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

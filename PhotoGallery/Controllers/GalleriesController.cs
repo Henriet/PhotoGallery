@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using PhotoGalery.DAL;
 using PhotoGalery.Models;
 using PhotoGalery.Services;
@@ -18,23 +14,19 @@ namespace PhotoGalery.Controllers
 
         public ActionResult Index()
         {
-            SetAdminRights();
              return View(_repository.All());
         }
         
-        public ActionResult Details(Guid? id)
+
+        public ActionResult Details(Guid id, int page = 1)
         {
-            SetAdminRights();
-            if (!id.HasValue)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Gallery gallery = _repository.Get(id.Value);
+            Gallery gallery = _repository.Get(id);
             if (gallery == null)
             {
                 return HttpNotFound();
             }
-            var model = new GalleryModel(gallery);
+            var model = new GalleryDetailsModel(gallery, page, 9);
+
             return View(model);
         }
 
@@ -44,17 +36,20 @@ namespace PhotoGalery.Controllers
             return View();
         }
 
-        // POST: Galleries/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")] 
         public ActionResult Create(GalleryModel model, HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid) return View(model);
+
             var path = String.Empty;
             if (photo != null)
             {
                 path = SavePhotoService.UploadPhoto(photo);
             }
+
             var gallery = new Gallery
             {
                 Name = model.Name,
@@ -62,65 +57,41 @@ namespace PhotoGalery.Controllers
                 CoverPhotoPath = path
             };
                 
-            _repository.Insert(gallery);
+            _repository.Insert(gallery);//todo
             return RedirectToAction("Index");
         }
 
-        // GET: Galleries/Edit/5
-        public ActionResult Edit(Guid? id)
+
+        public ActionResult Edit(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Gallery gallery = _repository.Get(id.Value);
+            Gallery gallery = _repository.Get(id);
 
             if (gallery == null)
             {
                 return HttpNotFound();
             }
-            return View(gallery); //todo view with editing images, description and title, cover photo
+            return View(gallery); 
         }
 
-        // POST: Galleries/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit( Gallery model, Guid Id)
+        [Authorize(Roles = "Admin")] 
+        public ActionResult Edit( Gallery model, Guid id)
         {
-            if (ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) return View(model);
 
+            var gallery = _repository.Get(id);
+            if(gallery.Description != model.Description || gallery.Name != model.Name)
                 _repository.Update(model);
 
-                return RedirectToAction("Index");
-            }
-            
-            return View(model);
+            return RedirectToAction("Index");
         }
-
-
-        // POST: Galleries/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Guid id)
+        
+        [Authorize(Roles = "Admin")] 
+        public ActionResult Delete(Guid id)
         {
             _repository.Delete(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _repository.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private void SetAdminRights()
-        {
-            var isAdmin = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>().IsInRole(User.Identity.GetUserId(), "Admin");
-            ViewBag.IsAdmin = isAdmin;
         }
     }
 }

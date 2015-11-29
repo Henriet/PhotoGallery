@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Net;
+using System.Web;
 using System.Web.Mvc;
 using PhotoGalery.DAL;
 using PhotoGalery.Models;
+using PhotoGalery.Services;
 using PhotoGallery.Domain;
 
 namespace PhotoGalery.Controllers
@@ -12,16 +13,10 @@ namespace PhotoGalery.Controllers
         private readonly Repository<Photo> _repository = new Repository<Photo>();
         private readonly Repository<Gallery> _galleryRepository = new Repository<Gallery>();
 
-        private const int PageSize = 9;
 
-        // GET: Photos/Details/5
-        public ActionResult Details(Guid? id)
+        public ActionResult Details(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var photo = _repository.Get(id.Value);
+            var photo = _repository.Get(id);
             if (photo == null)
             {
                 return HttpNotFound();
@@ -29,42 +24,45 @@ namespace PhotoGalery.Controllers
             return View(photo);
         }
 
-        public ActionResult GetPhotosForPage(Guid galleryId, int pageNumber)
-        {
-            var gallery = _galleryRepository.Get(galleryId);
-            var photos = gallery.Photos.GetRange(pageNumber*PageSize - 1, PageSize);
 
-            return PartialView(photos);
+        [Authorize(Roles = "Admin")]
+        public ActionResult Upload(Guid galleryId)
+        {
+            var model = new UploadPhotoModel(galleryId);
+            return View(model);
         }
 
-        // GET: Photos/Create
-        public ActionResult Upload()
-        {
-            return View();
-        }
-
-        // POST: Photos/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upload(Photo photo)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Upload(UploadPhotoModel model, HttpPostedFileBase image, Guid galleryId) //todo
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(model);
+            var path = String.Empty;
+            if (image != null)
             {
-              //todo
+                path = SavePhotoService.UploadPhoto(image);
             }
+            var photo = new Photo
+            {
+                Name = model.Name,
+                Description = model.Description,
+                Path = path,
+                UploadDateTime = DateTime.Now
+            };
+            var gallery = _galleryRepository.Get(galleryId);
+            gallery.Photos.Add(photo);
 
-            return View(photo);
+            _galleryRepository.Update(gallery); //todo
+
+            return RedirectToAction("Edit", "Galleries", new { Id = galleryId });
         }
 
-        // GET: Photos/Edit/5
-        public ActionResult Edit(Guid? id)
+        [Authorize(Roles = "Admin")]
+        public ActionResult Edit(Guid id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Photo photo = _repository.Get(id.Value);
-            
+            Photo photo = _repository.Get(id);
+
             if (photo == null)
             {
                 return HttpNotFound();
@@ -73,52 +71,41 @@ namespace PhotoGalery.Controllers
             {
                 Description = photo.Description,
                 Name = photo.Name,
-                GalleryId = photo.Gallery.Id,
                 Id = photo.Id
             };
             return View(model);
         }
 
-        // POST: Photos/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(EditPhotoModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var photo = _repository.Get(model.Id);
-                if (photo != null)
-                {
-                    photo.Gallery = _galleryRepository.Get(model.GalleryId);
-                    photo.Description = model.Description;
-                    photo.Name = model.Name;
-                    _repository.Update(photo);
-                    return RedirectToAction("Edit", "Galleries", model.GalleryId);
-                }
-                return RedirectToAction("Index", "Galleries");
-            }
-            return View(model);
+            if (!ModelState.IsValid) return View(model);
+
+            var photo = _repository.Get(model.Id);
+            if (photo == null ||
+                (model.Name == photo.Name && model.Description == photo.Description))
+                return RedirectToAction("Index", "Galleries");//todo
+
+            photo.Description = model.Description;
+            photo.Name = model.Name;
+            _repository.Update(photo);
+
+            return RedirectToAction("Details", "Photos", model.Id);
         }
 
 
-        // POST: Photos/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(Guid id)
         {
             Photo photo = _repository.Get(id);
             var galleryId = photo.Gallery.Id;
             _repository.Delete(id);
-            return RedirectToAction("Edit",  "Galleries", galleryId);
-        }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _repository.Dispose();
-            }
-            base.Dispose(disposing);
+            return RedirectToAction("Edit", "Galleries", galleryId);
         }
     }
 }

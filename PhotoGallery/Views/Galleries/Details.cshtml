@@ -1,22 +1,45 @@
-﻿@model PhotoGalery.Models.GalleryModel
+﻿@using PagedList.Mvc
+@model PhotoGalery.Models.GalleryDetailsModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-@if (ViewBag.IsAdmin)
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+@if (User.IsInRole("Admin"))
 {
     <p>
-
-        @Html.ActionLink("Edit gallery", "Edit", new { controller = "Galleries" }, new { @class = "btn btn-default" })
-    </p>
+        @Html.AntiForgeryToken()
+        @Html.ActionLink("Edit gallery", "Edit", new {controller = "Galleries", Id = Model.Id}, new {@class = "btn btn-default"})
+        @Html.ActionLink("Delete gallery", "Delete", new { controller = "Galleries", Id = Model.Id }, new { @class = "btn btn-default" })
+     </p>
 }
-
-<h2>@Html.DisplayFor(model => model.Name)</h2>
 
 <div>
 
-    @Html.DisplayFor(model => model.Description)
+  <h6>  @Html.DisplayFor(model => model.Description)</h6>
 
 </div>
 
+    <ul id="gallery-grid" class="row shuffle">
+        @foreach (var item in Model.Photos)
+        {
+
+            <li class=" col-md-4 col-xs-6 thumb gallery-grid shuffle-item">
+                <div class="hover-content">
+                    <a href="@Url.Action("Details", "Photos", new {Id = item.Id})">
+
+                        <img src="@item.Path" class="img-responsive" />
+                        <div class="overlay">
+                            <i class="fa fa-search"></i>
+                            <h6>@item.Name</h6>
+                            <div>@item.Description</div>
+                        </div>
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+
+    @Html.PagedListPager(Model.Photos, page => Url.Action("Details", "Galleries", new { page, Id = Model.Id }))

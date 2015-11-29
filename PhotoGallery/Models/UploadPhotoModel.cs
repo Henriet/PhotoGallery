@@ -6,9 +6,9 @@ namespace PhotoGalery.Models
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid GalleryId { get; set; }
+        public int GalleryId { get; set; }
 
-        public UploadPhotoModel(Guid galleryId)
+        public UploadPhotoModel(int galleryId)
         {
             GalleryId = galleryId;
         }

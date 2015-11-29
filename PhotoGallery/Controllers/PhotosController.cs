@@ -14,7 +14,7 @@ namespace PhotoGalery.Controllers
         private readonly Repository<Gallery> _galleryRepository = new Repository<Gallery>();
 
 
-        public ActionResult Details(Guid id)
+        public ActionResult Details(int id)
         {
             var photo = _repository.Get(id);
             if (photo == null)
@@ -26,7 +26,7 @@ namespace PhotoGalery.Controllers
 
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Upload(Guid galleryId)
+        public ActionResult Upload(int galleryId)
         {
             var model = new UploadPhotoModel(galleryId);
             return View(model);
@@ -35,14 +35,11 @@ namespace PhotoGalery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Upload(UploadPhotoModel model, HttpPostedFileBase image, Guid galleryId) //todo
+        public ActionResult Upload(UploadPhotoModel model, HttpPostedFileBase image, int galleryId) //todo
         {
             if (!ModelState.IsValid) return View(model);
-            var path = String.Empty;
-            if (image != null)
-            {
-                path = SavePhotoService.UploadPhoto(image);
-            }
+            var path = SavePhotoService.UploadPhoto(image);
+            
             var photo = new Photo
             {
                 Name = model.Name,
@@ -59,7 +56,7 @@ namespace PhotoGalery.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(int id)
         {
             Photo photo = _repository.Get(id);
 
@@ -99,7 +96,7 @@ namespace PhotoGalery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(int id)
         {
             Photo photo = _repository.Get(id);
             var galleryId = photo.Gallery.Id;

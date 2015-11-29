@@ -25,7 +25,7 @@ namespace PhotoGalery.DAL
             GC.SuppressFinalize(this);
         }
 
-        public T Get(Guid id)
+        public T Get(int id)
         {
             return DbSet.Find(id);
         }
@@ -46,7 +46,7 @@ namespace PhotoGalery.DAL
             return true;
         }
 
-        public bool Delete(Guid id)
+        public bool Delete(int id)
         {
             T entity = Get(id);
             if (entity == null) return false;

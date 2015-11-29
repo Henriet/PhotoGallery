@@ -7,10 +7,10 @@ namespace PhotoGalery.DAL
     public interface IRepository<T> where T : class
     {
         void Dispose();
-        T Get(Guid id);
+        T Get(int id);
         T Insert(T item);
         bool Update(T entity);
-        bool Delete(Guid id);
+        bool Delete(int id);
         void CommitChanges();
         List<T> All();
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);

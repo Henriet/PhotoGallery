@@ -5,12 +5,17 @@ namespace PhotoGalery.Services
 {
     public static class SavePhotoService
     {
-        private const string Tilda = "~";
         private const string BasePath = "/Content/Photo/";
+        private static readonly string DefaultImagePath = Path.Combine(HttpContext.Current.Server.MapPath(BasePath), "no-image.png");
         public static string UploadPhoto(HttpPostedFileBase imagesfiles)
         {
+            if (imagesfiles == null)
+            {
+                return DefaultImagePath;
+            }
+
             var fileName = imagesfiles.FileName;
-            var path = Path.Combine(Tilda, HttpContext.Current.Server.MapPath(BasePath), fileName);
+            var path = Path.Combine("~", HttpContext.Current.Server.MapPath(BasePath), fileName);
 
             var data = new byte[imagesfiles.ContentLength];
             imagesfiles.InputStream.Read(data, 0, imagesfiles.ContentLength);

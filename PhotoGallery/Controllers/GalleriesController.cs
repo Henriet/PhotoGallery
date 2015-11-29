@@ -18,7 +18,7 @@ namespace PhotoGalery.Controllers
         }
         
 
-        public ActionResult Details(Guid id, int page = 1)
+        public ActionResult Details(int id, int page = 1)
         {
             Gallery gallery = _repository.Get(id);
             if (gallery == null)
@@ -44,11 +44,7 @@ namespace PhotoGalery.Controllers
         {
             if (!ModelState.IsValid) return View(model);
 
-            var path = String.Empty;
-            if (photo != null)
-            {
-                path = SavePhotoService.UploadPhoto(photo);
-            }
+            var path = SavePhotoService.UploadPhoto(photo);
 
             var gallery = new Gallery
             {
@@ -62,7 +58,7 @@ namespace PhotoGalery.Controllers
         }
 
 
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(int id)
         {
             Gallery gallery = _repository.Get(id);
 
@@ -76,7 +72,7 @@ namespace PhotoGalery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")] 
-        public ActionResult Edit( Gallery model, Guid id)
+        public ActionResult Edit( Gallery model, int id)
         {
             if (!ModelState.IsValid) return View(model);
 
@@ -88,7 +84,7 @@ namespace PhotoGalery.Controllers
         }
         
         [Authorize(Roles = "Admin")] 
-        public ActionResult Delete(Guid id)
+        public ActionResult Delete(int id)
         {
             _repository.Delete(id);
             return RedirectToAction("Index");

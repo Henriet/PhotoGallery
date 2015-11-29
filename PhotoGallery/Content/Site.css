@@ -1,0 +1,565 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Large Devices Styles Starts */
+
+@media (min-width: 1200px) {
+
+}
+
+/* Medium Devices Styles Starts */
+
+@media (min-width: 992px) and (max-width: 1199px) {
+
+/* Navigation Styles Starts */
+
+.menu {	
+	top: 30%;
+}
+
+/* Photography Page Styles Starts */
+
+	ul#gallery-grid li {
+		min-height: 149px;
+		height: auto !important;
+		height: 149px;
+	}
+	
+
+}
+
+
+
+/* Header Styles Starts */
+
+	.logo .img-responsive {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.social-media-links {
+		margin-top: 20px;
+		text-align: center;
+	}
+	
+/* Navigation Styles Starts */
+
+.menu {	
+	top: 30%;
+}	
+	
+/* Photography Page Styles Starts */
+
+	ul#gallery-grid li {
+		min-height: 190px;
+		height: auto !important;
+		height: 190px;
+	}
+	ul#gallery-grid .hover-content h6 {
+		line-height: 190px;
+	}
+	ul#gallery-grid li .img-responsive {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+/* Footer Styles Starts */
+
+.footer {
+	text-align: center;
+}	
+	.footer .pull-left, 
+	.footer .pull-right {
+		float: none !important;
+	}
+	
+}
+
+/* Extra Small Devices Styles Starts */
+
+@media (max-width: 767px) {
+
+/* Wrapper Styles Starts */
+
+#wrapper {
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+
+/* Header Styles Starts */
+
+	.logo .img-responsive {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.social-media-links {
+		margin-top: 20px;
+		text-align: center;
+	}
+	
+/* Navigation Styles Starts */
+
+.menu {	
+	top: 25%;
+}	
+	
+/* Photography Page Styles Starts */
+
+	ul#gallery-grid li {
+		min-height: 172px;
+		height: auto !important;
+		height: 172px;
+	}
+	ul#gallery-grid .hover-content h6 {
+		line-height: 172px;
+	}
+	ul#gallery-grid li .img-responsive {
+		margin-left: auto;
+		margin-right: auto;
+	}	
+
+/* Footer Styles Starts */
+
+.footer {
+	text-align: center;
+}	
+	.footer .pull-left, 
+	.footer .pull-right {
+		float: none !important;
+	}
+	
+}
+
+.bg1 { background-color: #121213; }
+.bg2 { background-color: #e74c2e; }
+.bg3 { background-color: #2fbfbf; }
+.bg4 { background-color: #f2c230; }
+.bg5 { background-color: #256f6e; }
+.bg6 { background-color: #f4545a; }
+
+/* Standard Styles Starts */
+
+a:focus { outline: none; }
+
+/* Typography Styles Starts */
+
+.light 	{ font-weight: 300; }
+.normal 	{ font-weight: 400; }
+.bold 	{ font-weight: 700; }
+
+.main-heading {
+	text-align: center;
+	text-transform: uppercase;
+}
+
+/* Heading Styles Starts */
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+	font-family: 'Roboto Condensed', sans-serif;
+}
+h1 { font-size: 38px; }
+h2 { font-size: 48px; }
+h3 { font-size: 36px; }
+h4 { font-size: 30px; }
+h5 { font-size: 24px; }
+h6 { font-size: 18px; }
+
+.font2 {
+	font-family: 'BenchNine', sans-serif;
+}
+
+/* Form & Buttons Styles Starts */
+
+.btn-secondary {
+	background-color: #1c1c1c;
+}
+.btn-secondary, 
+.btn-secondary:hover, 
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active {
+	color: #fff;
+}
+.btn-secondary:hover, 
+.btn-secondary:focus,
+.btn-secondary:active,
+.btn-secondary.active {
+	background-color: #0b0b0b;
+}
+
+/* Wrapper Styles Starts */
+
+#wrapper {
+	padding-top: 65px;
+	padding-bottom: 65px;
+	position: relative;
+	overflow: hidden;
+}
+#wrapper.home {
+	padding-bottom: 5px;
+}
+
+/* Navigation Styles Starts */
+
+.menu {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	position: fixed;
+	left: 0;
+	top: 35%;
+	z-index: 999;
+}
+	.menu li a .fa {
+		margin: 1px 1px 1px 0;
+		padding: 10px;
+		font-size: 18px;
+		display: block;
+		text-transform: uppercase;
+	}
+	.menu li.active a .fa, 
+	.menu li a .fa {
+		background-color: #171717;
+	}
+	.menu li.two.active a .fa, 
+	.menu li.two a .fa {
+		background-color: #e74c2e;
+	}
+	.menu li.three.active a .fa, 	
+	.menu li.three a .fa {
+		background-color: #2fbfbf;
+	}
+	.menu li.four.active a .fa, 	
+	.menu li.four a .fa {
+		background-color: #f2c230;
+	}
+	.menu li.five.active a .fa, 	
+	.menu li.five a .fa {
+		background-color: #256f6e;
+	}
+	.menu li.six.active a .fa, 	
+	.menu li.six a .fa {
+		background-color: #f4545a;
+	}
+	.menu li a:hover .fa {
+		background-color: #292929;
+	}
+	.menu li.two a:hover .fa {
+		background-color: #de482c;
+	}
+	.menu li.three a:hover .fa {
+		background-color: #26a9a9;
+	}
+	.menu li.four a:hover .fa {
+		background-color: #e5b82f;
+	}
+	.menu li.five a:hover .fa {
+		background-color: #216261;
+	}
+	.menu li.six a:hover .fa {
+		background-color: #dc494f;
+	}
+	.menu li a:hover, 
+	.menu li a:focus {
+		color: #fff;
+		text-decoration: none;
+	}
+
+/* Header Styles Starts */
+
+.header {
+	margin-bottom: 55px;
+}
+	.logo {
+	}
+	.social-media-links {
+		text-align: right;
+	}
+		.social-media-links li {
+			margin-left: 5px;
+		}
+			.social-media-links li a {
+				font-size: 18px;
+			}
+			.social-media-links li a, 
+			.social-media-links li a:hover, 
+			.social-media-links li a:focus {
+				color: #fff;
+			}
+			
+/* Intro Styles Starts */
+
+.intro {
+	margin-top: 60px;
+	padding: 30px;
+}
+	.intro .img-responsive {
+		display: table-caption;
+		margin-left: auto;
+		margin-right: auto;
+	}
+			
+/* Content Area Styles Starts */
+
+#content-area {
+	margin-top: 40px;
+	margin-bottom: 20px;
+}			
+			
+/* Main Area Styles Starts */
+
+.mainarea {
+	margin-bottom: 20px;
+}
+	.content-block-1 {
+	}
+		.content-block-1 h4 {
+			margin-top: 0;
+			margin-bottom: 5px;
+		}
+		.content-block-1 h4 + h4 {
+			margin-bottom: 15px;
+		}
+	.img-block-1 {
+		margin-top: 10px;
+	}
+	
+/* Services Block Styles Starts */
+
+	.services-block {
+		margin-top: 40px;
+		text-align: center;
+	}
+		.services-block .fa {
+			width: 70px;
+			height: 70px;
+			line-height: 70px;
+			font-size: 36px;
+			color: #e74c2e;
+			background-color: #fff;
+		}
+		.services-block h4 {
+			margin-top: 20px;
+			font-weight: 300;
+		}
+		
+/* Photography Page Styles Starts */
+
+	ul#gallery-filter {
+		text-align: center;
+	}
+		ul#gallery-filter li {
+			padding: 10px;
+			text-transform: uppercase;
+			font-size: 18px;
+		}
+		ul#gallery-filter li a {
+			font-weight: normal;
+		}
+		ul#gallery-filter li a.active, 
+		ul#gallery-filter li a:hover, 
+		ul#gallery-filter li a:focus {
+			color: #171719;
+			text-decoration: none;
+		}
+	ul#gallery-grid {
+		margin: 0 -10px;
+		padding: 0;
+		list-style:none;
+		overflow: hidden;
+	}
+		ul#gallery-grid li {
+			margin-top: 15px;
+			margin-bottom: 15px;
+			min-height: 183px;
+			height: auto !important;
+			height: 500px;
+		}
+			ul#gallery-grid .hover-content {
+				overflow: hidden;
+				position: relative;
+			}
+			ul#gallery-grid .hover-content img {
+				-webkit-transform: scale(1.0);
+			       -moz-transform: scale(1.0);
+			            transform: scale(1.0);
+			}
+			ul#gallery-grid .hover-content:hover img {
+				-webkit-transform: scale(1.3);
+			       -moz-transform: scale(1.3);
+			            transform: scale(1.3);
+			}				
+				ul#gallery-grid .hover-content .overlay {
+					position: absolute;
+					top: 0;
+					right: 0;
+					left: 0;
+					bottom: 0;
+					height: 100%;
+					text-align :center;
+					background: rgba(23, 23, 25, 0.8);
+					color: #fff;
+					opacity: 0;	
+				}
+				ul#gallery-grid .hover-content:hover .overlay {
+					opacity: 1;
+				}
+				ul#gallery-grid .hover-content .fa {
+					position: absolute;
+					top: calc(50% - 35px);
+					left: calc(50% - 10px);
+					font-size: 24px;
+				}
+				ul#gallery-grid .hover-content h6 {
+					text-align: center;
+					line-height: 180px;
+					text-transform: uppercase;
+				}
+		
+/* Client & Film List Styles Starts */
+
+.client-list {
+	margin-top: -20px;
+}
+.film-list {
+	margin-top: -10px;
+	text-align: center;
+}
+	.client-list li, 
+	.film-list li {
+		margin-top: 40px;
+	}
+	.client-list li .img-responsive {
+		margin-left: auto;
+		margin-right: auto;
+	}
+	.film-list h5 {
+		text-transform: uppercase;
+		font-size: 300;
+	}
+	
+/* Contact Page Styles Starts */
+
+	.map, 
+	#main-contact-form {
+		margin-top: 20px;
+	}
+	.map {
+		height: 350px;
+	}
+	.contact-status {
+		margin-top: 20px;
+		display: none;
+	}
+	#main-contact-form .form-control {
+		border-color: #c3c3c3;
+		color: #1c1c1c;
+	}
+	#main-contact-form .btn-secondary {
+		padding: 10px 20px;
+		text-transform: uppercase;
+	}
+	#main-contact-form .form-control::-moz-placeholder {
+	  color: #1c1c1c;
+	}
+	#main-contact-form .form-control:-ms-input-placeholder {
+	  color: #1c1c1c;
+	}
+	#main-contact-form .form-control::-webkit-input-placeholder {
+	  color: #1c1c1c;
+	}
+			
+/* Side List 1 Styles Starts */
+
+
+
+/* Footer Styles Starts */
+
+.footer {
+	padding: 20px 0 10px;
+	background-color: #171719;
+	font-size: 15px;
+}
+	.footer, 
+	.footer a {
+		color: #a9a9a9;
+		font-weight: bold;
+	}
+	.footer .fa {
+		margin-right: 5px;
+		color: #fff;
+	}
+	.footer li + li {
+		margin-left: 15px;
+	}
+
+/* Generic Styles Starts */
+
+.parallax {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+.img-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+.divider-1 {
+	margin: 15px auto 25px;
+	width: 1100px;
+	height: 1px;
+	background-color: #fff;
+}
+#main-contact-form .form-control, 
+#main-contact-form .btn-secondary, 
+.no-border-radius {
+	-webkit-border-radius: 0;
+	   -moz-border-radius: 0;
+			border-radius: 0;
+}
+.services-block .fa {
+	-webkit-border-radius: 50%;
+	   -moz-border-radius: 50%;
+			border-radius: 50%;
+}
+.no-boxshadow {
+	-webkit-box-shadow: none;
+	   -moz-box-shadow: none;
+			box-shadow: none;
+}
+ul#gallery-grid .hover-content, 
+ul#gallery-grid .hover-content img, 
+ul#gallery-grid .hover-content .overlay, 
+#main-contact-form .btn-secondary {
+	-webkit-transition: all .3s ease-in-out;
+	-moz-transition: all .3s ease-in-out;
+	-o-transition: all .3s ease-in-out;
+	transition: all .3s ease-in-out;
+}

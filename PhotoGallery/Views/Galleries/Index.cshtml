@@ -1,0 +1,36 @@
+﻿@model IEnumerable<PhotoGallery.Domain.Gallery>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h3>Galleries</h3>
+
+@if (ViewBag.IsAdmin != null && ViewBag.IsAdmin)
+{
+    <p>
+
+        @Html.ActionLink("Create new gallery", "Create", new {controller = "Galleries"}, new {@class = "btn btn-default"})
+    </p>
+}
+
+<ul id="gallery-grid" class="row shuffle" >
+    @foreach (var item in Model)
+    {
+
+        <li class=" col-md-4 col-xs-6 thumb gallery-grid shuffle-item">
+            <div class="hover-content">
+                <a href="@Url.Action("Details", "Galleries", new {Id = item.Id})">
+
+                    <img src="@item.CoverPhotoPath" class="img-responsive" />
+                    <div class="overlay">
+                        <i class="fa fa-search"></i>
+                        <h6>@item.Name</h6>
+                        <div>@item.Description</div>
+                    </div>
+                </a>
+            </div>
+        </li>
+    }
+</ul>
+

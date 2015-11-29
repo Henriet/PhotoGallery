@@ -1,0 +1,22 @@
+﻿@model PhotoGalery.Models.GalleryModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@if (ViewBag.IsAdmin)
+{
+    <p>
+
+        @Html.ActionLink("Edit gallery", "Edit", new { controller = "Galleries" }, new { @class = "btn btn-default" })
+    </p>
+}
+
+<h2>@Html.DisplayFor(model => model.Name)</h2>
+
+<div>
+
+    @Html.DisplayFor(model => model.Description)
+
+</div>
+

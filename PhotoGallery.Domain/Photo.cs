@@ -8,9 +8,8 @@ namespace PhotoGallery.Domain
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int Id { get; protected set; }
+        public int Id { get; set; }
 
-        [Required]
         public string Path { get; set; }
 
         [Required]
@@ -19,7 +18,10 @@ namespace PhotoGallery.Domain
 
         public string Description { get; set; }
 
+         [ForeignKey("GalleryId")]
         public virtual Gallery Gallery { get; set; }
+
+        public int? GalleryId { get; set; }
         
         public DateTime UploadDateTime { get; set; }
 

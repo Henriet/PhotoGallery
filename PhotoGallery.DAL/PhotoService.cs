@@ -7,19 +7,15 @@ namespace PhotoGalery.DAL
     {
         private readonly Repository<Gallery> _galleryRepository = new Repository<Gallery>(); 
 
-        public Photo AddPhotoToGallery(string name, string description, string path, int galleryId)
+        public Photo AddPhotoToGallery(string path, Photo photo)
         {
             try
             {
-                var gallery = _galleryRepository.Get(galleryId);
-                var photo = new Photo
-                {
-                    Gallery = gallery,
-                    Path = path,
-                    Name = name,
-                    Description = description, 
-                    UploadDateTime = DateTime.Now
-                };
+                if (photo.GalleryId == null) return photo;
+                var gallery = _galleryRepository.Get(photo.GalleryId.Value);
+                photo.UploadDateTime = DateTime.Now;
+                photo.Path = path;
+                photo.Gallery = gallery;
 
                 gallery.Photos.Add(photo);
                 _galleryRepository.Update(gallery);
@@ -31,16 +27,16 @@ namespace PhotoGalery.DAL
             }
         }
 
-        public void UpdatePhoto(int id, string name, string description)
+        public void UpdatePhoto(int id, Photo photo)
         {
             try
             {
-                var photo = Get(id);
-                if (photo == null) return;
+                var photoFromDb = Get(id);
+                if (photoFromDb == null) return;
 
-                photo.Name = name;
-                photo.Description = description;
-                Update(photo);
+                photoFromDb.Name = photo.Name;
+                photoFromDb.Description = photo.Description;
+                Update(photoFromDb);
             }
             catch (Exception ex)
             {

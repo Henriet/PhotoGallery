@@ -1,4 +1,4 @@
-﻿@model PhotoGalery.Models.UploadPhotoModel
+﻿@model PhotoGallery.Domain.Photo
 
 @{
     ViewBag.Title = "Upload";
@@ -10,6 +10,7 @@
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.HiddenFor(model => model.GalleryId)
+    
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">

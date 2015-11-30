@@ -23,19 +23,22 @@ namespace PhotoGalery.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Upload(int galleryId)
         {
-            var model = new UploadPhotoModel(galleryId);
-            return View(model);
+            var photo = new Photo
+            {
+                GalleryId = galleryId
+            };
+            return View(photo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Upload(UploadPhotoModel model, HttpPostedFileBase image)
+        public ActionResult Upload(Photo model, HttpPostedFileBase image)
         {
             if (!ModelState.IsValid) return View(model);
            
             var path = SavePhotoService.UploadPhoto(image);
-            _photoService.AddPhotoToGallery(model.Name, model.Description, path, model.GalleryId);
+            _photoService.AddPhotoToGallery(path, model);
 
             return RedirectToAction("Details", "Galleries", new { Id = model.GalleryId });
         }
@@ -49,21 +52,19 @@ namespace PhotoGalery.Controllers
             {
                 return HttpNotFound();
             }
-
-            var model = new EditPhotoModel(photo);
-            return View(model);
+            return View(photo);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(EditPhotoModel model)
+        public ActionResult Edit(Photo model, int id)
         {
             if (!ModelState.IsValid) return View(model);
 
-            _photoService.UpdatePhoto(model.Id, model.Name, model.Description);
+            _photoService.UpdatePhoto(id, model);
 
-            return RedirectToAction("Details", "Photos", new { model.Id });
+            return RedirectToAction("Details", "Galleries", new { Id =  model.GalleryId });
         }
 
 

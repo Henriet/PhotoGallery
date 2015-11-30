@@ -6,7 +6,7 @@ namespace PhotoGalery.Services
     public static class SavePhotoService
     {
         private const string BasePath = "/Content/Photo/";
-        private static readonly string DefaultImagePath = Path.Combine(HttpContext.Current.Server.MapPath(BasePath), "no-image.png");
+        private static readonly string DefaultImagePath = Path.Combine(BasePath, "no-image.png");
         public static string UploadPhoto(HttpPostedFileBase imagesfiles)
         {
             if (imagesfiles == null)

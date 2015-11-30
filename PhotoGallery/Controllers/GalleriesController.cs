@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using PhotoGalery.DAL;
 using PhotoGalery.Models;
@@ -43,18 +42,12 @@ namespace PhotoGalery.Controllers
         public ActionResult Create(GalleryModel model, HttpPostedFileBase photo)
         {
             if (!ModelState.IsValid) return View(model);
-
-            var path = SavePhotoService.UploadPhoto(photo);
-
-            var gallery = new Gallery
-            {
-                Name = model.Name,
-                Description = model.Description,
-                CoverPhotoPath = path
-            };
+            
+            var gallery = model.GetGalleryFromModel();
+            gallery.CoverPhotoPath = SavePhotoService.UploadPhoto(photo);
                 
-            _repository.Insert(gallery);//todo
-            return RedirectToAction("Index");
+            gallery = _repository.Insert(gallery);
+            return RedirectToAction("Details", new{gallery.Id});
         }
 
 
@@ -75,10 +68,7 @@ namespace PhotoGalery.Controllers
         public ActionResult Edit( Gallery model, int id)
         {
             if (!ModelState.IsValid) return View(model);
-
-            var gallery = _repository.Get(id);
-            if(gallery.Description != model.Description || gallery.Name != model.Name)
-                _repository.Update(model);
+            _repository.Update(model);
 
             return RedirectToAction("Index");
         }

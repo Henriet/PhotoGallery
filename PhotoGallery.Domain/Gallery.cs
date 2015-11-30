@@ -11,15 +11,14 @@ namespace PhotoGallery.Domain
         [Key]
         public int Id { get; protected set; }
 
-        [StringLength(60, MinimumLength = 3)]
-        public string Name { get; set; }//todo valid datatags
+        [Required]
+        public string Name { get; set; }
 
         public string Description { get; set; }
 
         public virtual List<Photo> Photos { get; set; }
 
-          [StringLength(60, MinimumLength = 10)]
-
+        [Required]
         public string CoverPhotoPath { get; set; }
 
         public Gallery()

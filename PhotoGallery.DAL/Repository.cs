@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -27,33 +31,61 @@ namespace PhotoGalery.DAL
 
         public T Get(int id)
         {
-            return DbSet.Find(id);
+            try
+            {
+                return DbSet.Find(id);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public T Insert(T item)
         {
-            T entity = DbSet.Add(item);
-            CommitChanges();
-            return entity;
+            try
+            {
+                T entity = DbSet.Add(item);
+                CommitChanges();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public bool Update(T entity)
         {
-            DbSet.Attach(entity);
+            try
+            {
+                DbSet.Attach(entity);
 
-            _context.Entry(entity).State = EntityState.Modified;
-            CommitChanges();
-            return true;
+                _context.Entry(entity).State = EntityState.Modified;
+                CommitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public bool Delete(int id)
         {
-            T entity = Get(id);
-            if (entity == null) return false;
+            try
+            {
+                T entity = Get(id);
+                if (entity == null) return false;
 
-            DbSet.Remove(entity);
-            CommitChanges();
-            return true;
+                DbSet.Remove(entity);
+                CommitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public void CommitChanges()
@@ -70,24 +102,45 @@ namespace PhotoGalery.DAL
 
         public List<T> All()
         {
-            return DbSet.ToList();
+            try
+            {
+                return DbSet.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return DbSet.Where(predicate).AsEnumerable();
+            try
+            {
+                return DbSet.Where(predicate).AsEnumerable();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!_disposed)
+            try
             {
-                if (disposing)
+                if (!_disposed)
                 {
-                    _context.Dispose();
+                    if (disposing)
+                    {
+                        _context.Dispose();
+                    }
                 }
+                _disposed = true;
             }
-            _disposed = true;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

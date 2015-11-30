@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using PagedList;
 using PhotoGallery.Domain;
@@ -7,6 +7,7 @@ namespace PhotoGalery.Models
 {
     public class GalleryDetailsModel
     {
+        [Required]
         public string Name { get; set; }
         public string Description { get; set; }
         public int Id { get; set; }

@@ -48,5 +48,10 @@ namespace PhotoGalery.DAL
             }
             
         }
+
+        public void DeletePhoto(Photo photo)
+        {
+            Delete(photo.Id);
+        }
     }
 }

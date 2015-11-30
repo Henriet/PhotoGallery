@@ -9,7 +9,7 @@ namespace PhotoGalery.Controllers
 {
     public class GalleriesController : Controller
     {
-        private readonly IRepository<Gallery> _repository = new Repository<Gallery>();
+        private readonly GalleryService _repository = new GalleryService();
 
         public ActionResult Index()
         {
@@ -60,10 +60,10 @@ namespace PhotoGalery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")] 
-        public ActionResult Edit( Gallery model, int id)
+        public ActionResult Edit( Gallery model, int Id)
         {
             if (!ModelState.IsValid) return View(model);
-            _repository.Update(model);
+            _repository.UpdateGallery(model.Name, model.Description, Id);
 
             return RedirectToAction("Index");
         }
@@ -71,7 +71,7 @@ namespace PhotoGalery.Controllers
         [Authorize(Roles = "Admin")] 
         public ActionResult Delete(int id)
         {
-            _repository.Delete(id);
+            _repository.DeleteGalleryWithPhotos(id);
             return RedirectToAction("Index");
         }
     }

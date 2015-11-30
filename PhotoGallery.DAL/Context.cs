@@ -17,7 +17,10 @@ namespace PhotoGalery.DAL
         
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            
+            modelBuilder.Entity<Gallery>()
+                .HasMany<Photo>(c => c.Photos)
+                .WithOptional(x => x.Gallery)
+                .WillCascadeOnDelete(true);
         }
     }
 }

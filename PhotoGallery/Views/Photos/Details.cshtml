@@ -10,13 +10,16 @@
     @if (User.IsInRole("Admin"))
     {
         <p>
-            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) 
+            @Html.AntiForgeryToken()
+            @Html.ActionLink("Edit photo", "Edit", new {controller = "Photos", Id = Model.Id}, new {@class = "btn btn-default"})
+            @Html.ActionLink("Delete photo", "Delete", new {controller = "Photos", Id = Model.Id}, new {@class = "btn btn-default"})
         </p>
     }
 
     <h6> @Html.DisplayFor(model => model.Description)</h6>
-    <h6>   @Html.DisplayFor(model => model.UploadDateTime)</h6>
+    <h6> @Html.DisplayFor(model => model.UploadDateTime)</h6>
     <div class=".col-xs-12">
         <img src="@Model.Path" class="img-rounded img-responsive" />
     </div>
 </div>
+

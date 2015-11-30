@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Core;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.Validation;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Linq.Expressions;
 
 namespace PhotoGalery.DAL
 {
-    public class Repository<T> : IRepository<T> where T : class
+    internal class Repository<T> : IRepository<T> where T : class
     {
         private readonly DbContext _context = new Context();
         private bool _disposed;

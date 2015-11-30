@@ -37,9 +37,8 @@ namespace PhotoGalery.Controllers
         {
             if (!ModelState.IsValid) return View(model);
            
-            var photo = UploadPhotoModel.GetPhotoFromModel(model);
-            photo.Path = SavePhotoService.UploadPhoto(image);
-            _photoService.Insert(photo, model.GalleryId);
+            var path = SavePhotoService.UploadPhoto(image);
+            _photoService.AddPhotoToGallery(model.Name, model.Description, path, model.GalleryId);
 
             return RedirectToAction("Edit", "Galleries", new { Id = model.GalleryId });
         }
@@ -64,14 +63,8 @@ namespace PhotoGalery.Controllers
         public ActionResult Edit(EditPhotoModel model)
         {
             if (!ModelState.IsValid) return View(model);
-
-            var photo = _photoService.Get(model.Id);
-
-            if (photo == null)
-                return RedirectToAction("Details", "Photos", new {model.Id });
-
-            model.UpdatePhotoFromModel(photo);
-            _photoService.Update(photo);
+            
+            _photoService.UpdatePhoto(model.Id, model.Name, model.Description);
 
             return RedirectToAction("Details", "Photos", new{model.Id});
         }

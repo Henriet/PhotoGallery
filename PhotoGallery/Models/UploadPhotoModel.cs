@@ -16,18 +16,6 @@ namespace PhotoGalery.Models
             GalleryId = galleryId;
         }
 
-        public static Photo GetPhotoFromModel(UploadPhotoModel model)
-        {
-            var photo = new Photo
-            {
-                Name = model.Name,
-                Description = model.Description,
-                UploadDateTime = DateTime.Now
-            };
-
-            return photo;
-        }
-
         public UploadPhotoModel()
         {
         }

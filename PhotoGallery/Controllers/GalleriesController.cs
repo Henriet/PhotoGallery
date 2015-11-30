@@ -10,6 +10,7 @@ namespace PhotoGalery.Controllers
     public class GalleriesController : Controller
     {
         private readonly GalleryService _repository = new GalleryService();
+        private const int PageSize = 9;
 
         public ActionResult Index()
         {
@@ -24,7 +25,7 @@ namespace PhotoGalery.Controllers
             {
                 return HttpNotFound();
             }
-            var model = new GalleryDetailsModel(gallery, page, 9);
+            var model = new GalleryDetailsModel(gallery, page, PageSize);
 
             return View(model);
         }

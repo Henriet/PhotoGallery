@@ -15,11 +15,8 @@ namespace PhotoGalery.Controllers
         public ActionResult Details(int id)
         {
             var photo = _photoService.Get(id);
-            if (photo == null)
-            {
-                return HttpNotFound();
-            }
-            return View(photo);
+
+            return photo != null ? (ActionResult)View(photo) : HttpNotFound();
         }
 
 

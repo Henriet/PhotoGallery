@@ -16,13 +16,6 @@ namespace PhotoGalery.DAL
 
         public void DeleteGalleryWithPhotos(int id)
         {
-            //var gallery = Get(id);
-
-            //var photos = gallery.Photos;
-            //foreach (var photo in photos)
-            //{
-            //    _photoService.DeletePhoto(photo);
-            //}
             Delete(id);
         }
     }

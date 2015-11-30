@@ -17,7 +17,8 @@ namespace PhotoGalery.DAL
                     Gallery = gallery,
                     Path = path,
                     Name = name,
-                    Description = description
+                    Description = description, 
+                    UploadDateTime = DateTime.Now
                 };
 
                 gallery.Photos.Add(photo);

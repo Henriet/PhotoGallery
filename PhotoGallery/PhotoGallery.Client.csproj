@@ -179,7 +179,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EditPhotoModel.cs" />
     <Compile Include="Models\GalleryDetailsModel.cs" />
-    <Compile Include="Models\GalleryModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\UploadPhotoModel.cs" />

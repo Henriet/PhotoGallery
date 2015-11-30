@@ -18,7 +18,6 @@ namespace PhotoGallery.Domain
 
         public virtual List<Photo> Photos { get; set; }
 
-        [Required]
         public string CoverPhotoPath { get; set; }
 
         public Gallery()

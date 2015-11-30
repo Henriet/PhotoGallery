@@ -19,7 +19,7 @@ namespace PhotoGalery.Controllers
 
         public ActionResult Details(int id, int page = 1)
         {
-            Gallery gallery = _repository.Get(id);
+            var gallery = _repository.Get(id);
             if (gallery == null)
             {
                 return HttpNotFound();
@@ -39,11 +39,10 @@ namespace PhotoGalery.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")] 
-        public ActionResult Create(GalleryModel model, HttpPostedFileBase photo)
+        public ActionResult Create(Gallery gallery, HttpPostedFileBase photo)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(gallery);
             
-            var gallery = model.GetGalleryFromModel();
             gallery.CoverPhotoPath = SavePhotoService.UploadPhoto(photo);
                 
             gallery = _repository.Insert(gallery);
@@ -53,13 +52,9 @@ namespace PhotoGalery.Controllers
 
         public ActionResult Edit(int id)
         {
-            Gallery gallery = _repository.Get(id);
+            var gallery = _repository.Get(id);
 
-            if (gallery == null)
-            {
-                return HttpNotFound();
-            }
-            return View(gallery); 
+            return gallery != null ? (ActionResult) View(gallery) : HttpNotFound();
         }
 
         [HttpPost]

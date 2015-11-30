@@ -40,7 +40,7 @@ namespace PhotoGalery.Controllers
             var path = SavePhotoService.UploadPhoto(image);
             _photoService.AddPhotoToGallery(model.Name, model.Description, path, model.GalleryId);
 
-            return RedirectToAction("Edit", "Galleries", new { Id = model.GalleryId });
+            return RedirectToAction("Details", "Galleries", new { Id = model.GalleryId });
         }
 
         [Authorize(Roles = "Admin")]
@@ -63,15 +63,13 @@ namespace PhotoGalery.Controllers
         public ActionResult Edit(EditPhotoModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            
+
             _photoService.UpdatePhoto(model.Id, model.Name, model.Description);
 
-            return RedirectToAction("Details", "Photos", new{model.Id});
+            return RedirectToAction("Details", "Photos", new { model.Id });
         }
 
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
@@ -79,7 +77,7 @@ namespace PhotoGalery.Controllers
             var galleryId = photo.Gallery.Id;
             _photoService.Delete(id);
 
-            return RedirectToAction("Edit", "Galleries", galleryId);
+            return RedirectToAction("Details", "Galleries", new { Id = galleryId });
         }
     }
 }

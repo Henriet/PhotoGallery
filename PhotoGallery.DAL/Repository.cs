@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace PhotoGalery.DAL
 {
-    internal class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
         private readonly DbContext _context = new Context();
         private bool _disposed;
